@@ -4,28 +4,6 @@ $sonarrUrl   = $env:HC_SONARR
 $radarrUrl   = $env:HC_RADARR
 $sabnzbdUrl  = $env:HC_SABNZBD
 
-# List of required environment variables for your services
-$requiredEnvVars = @(
-    @{ Name = "HC_PLEX";      Label = "Plex" },
-    @{ Name = "HC_SONARR";    Label = "Sonarr" },
-    @{ Name = "HC_RADARR";    Label = "Radarr" },
-    @{ Name = "HC_SABNZBD";   Label = "SABnzbd" }
-)
-
-# Check each one
-$missingVars = @()
-foreach ($var in $requiredEnvVars) {
-    if (-not ${env:$($var.Name)}) {
-        $missingVars += "$($var.Label) (`$env:$($var.Name))"
-    }
-}
-
-if ($missingVars.Count -gt 0) {
-    Write-Error "❌ Missing required environment variables:`n - $($missingVars -join "`n - ")"
-    exit 1
-}
-
-
 $services = @(
     @{
         Name = "Plex"
